@@ -10,8 +10,6 @@ const CovidData = require("../Models/CovidData");
 // Add data
 router.post("/covid/:country/:date", async (req, res) => {
   try {
-    console.log("Request received"); // Add this line
-
     const { country, date } = req.params;
     const { totalCases, totalDeaths, totalRecoveries } = req.body;
 
@@ -30,10 +28,8 @@ router.post("/covid/:country/:date", async (req, res) => {
     // Save the new data to the database
     await newData.save();
 
-    console.log("Data added successfully");
     res.status(201).json({ message: "Data added successfully" });
   } catch (error) {
-    console.error("Error adding data:", error);
     res.status(500).json({ error: "Internal server error" });
   }
 });
@@ -58,10 +54,8 @@ router.delete("/covid/:country/:date", async (req, res) => {
         .json({ error: "Data not found for the given country and date" });
     }
 
-    console.log("Data deleted successfully");
     res.status(200).json({ message: "Data deleted successfully" });
   } catch (error) {
-    console.error("Error deleting data:", error);
     res.status(500).json({ error: "Internal server error" });
   }
 });
@@ -92,14 +86,10 @@ router.put("/covid/:country/:date", async (req, res) => {
     existingData.totalDeaths = totalDeaths;
     existingData.totalRecoveries = totalRecoveries;
 
-    console.log("After modifications - existingData:", existingData);
-
     await existingData.save();
 
-    console.log("Data updated successfully");
     res.status(200).json({ message: "Data updated successfully" });
   } catch (error) {
-    console.error("Error updating data:", error);
     res.status(500).json({ error: "Internal server error" });
   }
 });
@@ -112,7 +102,6 @@ router.get("/admin-panel", protect, (req, res) => {
 router.post("/login", async (req, res) => {
   try {
     const { username, password } = req.body;
-    console.log("Request body:", req.body);
 
     const admin = await Admin.findOne({ username });
 
@@ -121,7 +110,6 @@ router.post("/login", async (req, res) => {
     }
 
     const isPasswordValid = await bcrypt.compare(password, admin.password);
-    console.log("Is password valid?", isPasswordValid);
 
     if (!isPasswordValid) {
       return res
@@ -129,10 +117,10 @@ router.post("/login", async (req, res) => {
         .json({ message: "Username or Password is Incorrect!" });
     }
 
-    const token = jwt.sign({ id: admin._id }, "secret");
+    const secret = process.env.JWT_SECRET;
+    const token = jwt.sign({ id: admin._id }, secret);
     res.json({ token, adminID: admin._id });
   } catch (error) {
-    console.error("Error in login route:", error);
     res.status(500).json({ error: "Internal Server Error" });
   }
 });

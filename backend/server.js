@@ -1,212 +1,28 @@
+const dotenv = require("dotenv").config();
+
 const express = require("express");
 const mongoose = require("mongoose");
 const Country = require("./Models/Country");
 const CovidData = require("./Models/CovidData");
-const Admin = require("./Models/Admin");
-const axios = require("axios");
-const bcrypt = require("bcrypt");
 const adminUserRouter = require("./Routes/adminUser");
 const cors = require("cors");
 const { format } = require("date-fns");
 const { parseISO } = require("date-fns");
-const { ObjectId } = mongoose.Types; // Add this line to import ObjectId
+const { ObjectId } = mongoose.Types;
 const FlagsData = require("./Models/Flag");
-const stringSimilarity = require("string-similarity");
-const dotenv = require("dotenv").config();
 const bodyParser = require("body-parser");
+const connectDB = require("./config/db");
 
 const app = express();
 app.use(cors());
-const PORT = 5000;
+const PORT = process.env.DEV_PORT;
 
 app.use(bodyParser.json());
 app.use(adminUserRouter);
 
 // MongoDB connection and schema/model definitions...
 
-const uri =
-  "mongodb+srv://kledis123:kledis123@covidfirsttry-cluster.f7rqmvv.mongodb.net/?retryWrites=true&w=majority";
-
-mongoose.connect(uri);
-
-// const fetchDataFromAPI = async () => {
-//   try {
-//     // Fetch data from the external API
-//     const response = await axios.get(
-//       "https://disease.sh/v3/covid-19/historical?lastdays=100"
-//     );
-
-//     // Check if the request was successful
-//     if (response.status !== 200) {
-//       throw new Error(`Failed to fetch data. Status: ${response.status}`);
-//     }
-
-//     // Extract relevant information
-//     const historicalData = response.data;
-
-//     // Log the structure of the received data
-//     // console.log(
-//     //   "Received data structure:",
-//     //   JSON.stringify(historicalData, null, 2)
-//     // );
-
-//     // Process and use the data as needed
-//     historicalData.forEach(async (countryData) => {
-//       // Extract data for each country
-//       const countryName = countryData.country;
-//       const timeline = countryData.timeline;
-
-//       // Create or update Country document
-//       const countryDocument = await Country.findOneAndUpdate(
-//         { name: countryName },
-//         { name: countryName },
-//         { upsert: true, new: true }
-//       );
-
-//       // Extract data for each date from the timeline
-//       const dates = Object.keys(timeline.cases);
-
-//       // Create or update CovidData documents for each date
-//       const promises = dates.map((date) => {
-//         const formattedDate = format(new Date(date), "yyyy-MM-dd");
-
-//         const covidData = {
-//           country: countryDocument._id,
-//           date: formattedDate, // Use the formatted date
-//           totalCases: timeline.cases[date],
-//           totalDeaths: timeline.deaths[date],
-//           totalRecoveries: timeline.recovered[date],
-//           // Add other fields as needed
-//         };
-
-//         return CovidData.findOneAndUpdate(
-//           { country: countryDocument._id, date: covidData.date },
-//           covidData,
-//           { upsert: true, new: true }
-//         );
-//       });
-
-//       await Promise.all(promises);
-//     });
-
-//     console.log("Data successfully fetched and stored.");
-//   } catch (error) {
-//     console.error("Error fetching or storing data:", error);
-//   }
-// };
-
-// // Call the function to fetch and store data
-// fetchDataFromAPI();
-
-// const saveFlagToDatabase = async () => {
-//   try {
-//     // Check if there's any data in the FlagsData collection
-//     const existingData = await FlagsData.findOne();
-
-//     // If there's existing data, skip fetching and saving
-//     if (existingData) {
-//       console.log(
-//         "Data already exists in the database. Skipping fetch and save."
-//       );
-//       return;
-//     }
-//     // Fetch data from the API
-//     const response = await axios.get(
-//       "https://disease.sh/v3/covid-19/countries"
-//     );
-
-//     // Check if the request was successful
-//     if (response.status === 200) {
-//       const apiData = response.data;
-
-//       // Transform data and save to MongoDB
-//       const flagsData = await Promise.all(
-//         apiData.map(async (data) => {
-//           const countryNames = await Country.find().distinct("name");
-//           const matches = stringSimilarity.findBestMatch(
-//             data.country,
-//             countryNames
-//           );
-
-//           const bestMatchName = matches.bestMatch.target;
-//           const country = await Country.findOne({ name: bestMatchName });
-
-//           if (country) {
-//             return {
-//               country: country._id,
-//               name: data.country,
-//               flag:
-//                 data.countryInfo && data.countryInfo.flag
-//                   ? data.countryInfo.flag
-//                   : "",
-//               lat:
-//                 data.countryInfo && data.countryInfo.lat
-//                   ? data.countryInfo.lat
-//                   : null,
-//               long:
-//                 data.countryInfo && data.countryInfo.long
-//                   ? data.countryInfo.long
-//                   : null,
-//               cases: data.cases,
-//               deaths: data.deaths,
-//               recovered: data.recovered,
-//               // Other fields from the API response
-//             };
-//           } else {
-//             console.error(`Country not found for name: ${data.country}`);
-//             return null; // or handle this case appropriately
-//           }
-//         })
-//       );
-
-//       const validFlagsData = flagsData.filter((flag) => flag !== null);
-
-//       await FlagsData.insertMany(validFlagsData);
-//       console.log("Data fetched and saved successfully!");
-//     } else {
-//       console.error(
-//         "Error fetching data from the API. Status:",
-//         response.status
-//       );
-//     }
-//   } catch (error) {
-//     console.error("Error fetching and saving data:", error);
-//   }
-// };
-
-// // Call the function to fetch and save data
-// saveFlagToDatabase();
-
-/// / /
-///
-/////
-////
-///
-
-// async function createAdmin() {
-//   try {
-//     const username = "kledis123";
-//     const password = "kledis123";
-
-//     // Hash the password
-//     const hashedPassword = await bcrypt.hash(password, 10);
-
-//     // Create the admin document
-//     const admin = new Admin({
-//       username,
-//       password: hashedPassword,
-//     });
-
-//     // Save the admin to the database
-//     await admin.save();
-
-//     console.log("Admin created successfully");
-//   } catch (error) {
-//     console.error("Error creating admin:", error);
-//   }
-// }
-
-// createAdmin();
+connectDB();
 
 app.get("/countries", async (req, res) => {
   try {
@@ -437,4 +253,184 @@ app.get("/flagsdata", async (req, res) => {
 
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
+  console.log(`${process.env.DEV_PORT}`);
 });
+
+// const fetchDataFromAPI = async () => {
+//   try {
+//     // Fetch data from the external API
+//     const response = await axios.get(
+//       "https://disease.sh/v3/covid-19/historical?lastdays=100"
+//     );
+
+//     // Check if the request was successful
+//     if (response.status !== 200) {
+//       throw new Error(`Failed to fetch data. Status: ${response.status}`);
+//     }
+
+//     // Extract relevant information
+//     const historicalData = response.data;
+
+//     // Log the structure of the received data
+//     // console.log(
+//     //   "Received data structure:",
+//     //   JSON.stringify(historicalData, null, 2)
+//     // );
+
+//     // Process and use the data as needed
+//     historicalData.forEach(async (countryData) => {
+//       // Extract data for each country
+//       const countryName = countryData.country;
+//       const timeline = countryData.timeline;
+
+//       // Create or update Country document
+//       const countryDocument = await Country.findOneAndUpdate(
+//         { name: countryName },
+//         { name: countryName },
+//         { upsert: true, new: true }
+//       );
+
+//       // Extract data for each date from the timeline
+//       const dates = Object.keys(timeline.cases);
+
+//       // Create or update CovidData documents for each date
+//       const promises = dates.map((date) => {
+//         const formattedDate = format(new Date(date), "yyyy-MM-dd");
+
+//         const covidData = {
+//           country: countryDocument._id,
+//           date: formattedDate, // Use the formatted date
+//           totalCases: timeline.cases[date],
+//           totalDeaths: timeline.deaths[date],
+//           totalRecoveries: timeline.recovered[date],
+//           // Add other fields as needed
+//         };
+
+//         return CovidData.findOneAndUpdate(
+//           { country: countryDocument._id, date: covidData.date },
+//           covidData,
+//           { upsert: true, new: true }
+//         );
+//       });
+
+//       await Promise.all(promises);
+//     });
+
+//     console.log("Data successfully fetched and stored.");
+//   } catch (error) {
+//     console.error("Error fetching or storing data:", error);
+//   }
+// };
+
+// // Call the function to fetch and store data
+// fetchDataFromAPI();
+
+// const saveFlagToDatabase = async () => {
+//   try {
+//     // Check if there's any data in the FlagsData collection
+//     const existingData = await FlagsData.findOne();
+
+//     // If there's existing data, skip fetching and saving
+//     if (existingData) {
+//       console.log(
+//         "Data already exists in the database. Skipping fetch and save."
+//       );
+//       return;
+//     }
+//     // Fetch data from the API
+//     const response = await axios.get(
+//       "https://disease.sh/v3/covid-19/countries"
+//     );
+
+//     // Check if the request was successful
+//     if (response.status === 200) {
+//       const apiData = response.data;
+
+//       // Transform data and save to MongoDB
+//       const flagsData = await Promise.all(
+//         apiData.map(async (data) => {
+//           const countryNames = await Country.find().distinct("name");
+//           const matches = stringSimilarity.findBestMatch(
+//             data.country,
+//             countryNames
+//           );
+
+//           const bestMatchName = matches.bestMatch.target;
+//           const country = await Country.findOne({ name: bestMatchName });
+
+//           if (country) {
+//             return {
+//               country: country._id,
+//               name: data.country,
+//               flag:
+//                 data.countryInfo && data.countryInfo.flag
+//                   ? data.countryInfo.flag
+//                   : "",
+//               lat:
+//                 data.countryInfo && data.countryInfo.lat
+//                   ? data.countryInfo.lat
+//                   : null,
+//               long:
+//                 data.countryInfo && data.countryInfo.long
+//                   ? data.countryInfo.long
+//                   : null,
+//               cases: data.cases,
+//               deaths: data.deaths,
+//               recovered: data.recovered,
+//               // Other fields from the API response
+//             };
+//           } else {
+//             console.error(`Country not found for name: ${data.country}`);
+//             return null; // or handle this case appropriately
+//           }
+//         })
+//       );
+
+//       const validFlagsData = flagsData.filter((flag) => flag !== null);
+
+//       await FlagsData.insertMany(validFlagsData);
+//       console.log("Data fetched and saved successfully!");
+//     } else {
+//       console.error(
+//         "Error fetching data from the API. Status:",
+//         response.status
+//       );
+//     }
+//   } catch (error) {
+//     console.error("Error fetching and saving data:", error);
+//   }
+// };
+
+// // Call the function to fetch and save data
+// saveFlagToDatabase();
+
+/// / /
+///
+/////
+////
+///
+
+// async function createAdmin() {
+//   try {
+//     const username = process.env.ADMIN_USERNAME;
+//     const password =  process.env.ADMIN_PASSWORD;
+
+//     // Hash the password
+//     const hashedPassword = await bcrypt.hash(password, 10);
+
+//     // Create the admin document
+//     const admin = new Admin({
+//       username,
+//       password: hashedPassword,
+//     });
+
+//     // Save the admin to the database
+//     await admin.save();
+
+//     console.log("Admin created successfully");
+//   } catch (error) {
+//     console.error("Error creating admin:", error);
+//   }
+// }
+
+// createAdmin();

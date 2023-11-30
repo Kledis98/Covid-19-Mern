@@ -11,13 +11,15 @@ function CountryTable() {
     const fetchData = async () => {
       try {
         const response = await axios.get(
-          "https://covid-19-tracker-mt79.onrender.com/countries?date=2023-03-05"
+          "https://covid-19-tracker-mt79.onrender.com/countries?date=2023-03-08"
         );
 
         if (response.status === 200) {
-          
+          const sortedCountriesData = response.data.sort(
+            (a, b) => b.totalCases - a.totalCases
+          );
     
-          setCountriesData(response);
+          setCountriesData(sortedCountriesData);
         }
       } catch (error) {
         console.error("Error fetching data:", error);

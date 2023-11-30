@@ -1,14 +1,25 @@
 name: End-to-end tests
-on: push
+
+on:
+  push:
+    branches:
+      - master
+
 jobs:
   cypress-run:
     runs-on: ubuntu-22.04
     steps:
       - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
         with:
-          node-version: 20.9
+          node-version: 14 # Use a version that is widely supported
           cache: "npm"
-          cache-dependency-path: frontend/package-lock.json
-      - run: npm ci
-      - run: npm test
+          cache-dependency-path: frontend # Adjust the path based on your project structure
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run tests
+        run: npm test

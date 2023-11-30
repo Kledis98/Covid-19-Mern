@@ -5,7 +5,8 @@
   "main": "server.js",
   "scripts": {
     "start": "NODE_OPTIONS='--max_old_space_size=4096' node backend/server.js",
-    "server": "nodemon backend/server.js"
+    "server": "nodemon backend/server.js",
+    "build": "npm install"
   },
   "author": "Kledis",
   "license": "ISC",

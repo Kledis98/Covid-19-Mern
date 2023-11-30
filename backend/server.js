@@ -206,13 +206,14 @@ app.listen(PORT, () => {
   console.log(`${process.env.DEV_PORT}`);
 });
 
+// SCRIPTS
 // This is the code for fetching data from an external API and storing it on mongo DB.
 
 // const fetchDataFromAPI = async () => {
 //   try {
 //     // Fetch data from the external API
 //     const response = await axios.get(
-//       "https://disease.sh/v3/covid-19/historical?lastdays=100"
+//       "https://disease.sh/v3/covid-19/historical?lastdays=365"
 //     );
 
 //     // Check if the request was successful

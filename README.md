@@ -26,6 +26,10 @@ $ git clone https://github.com/Kledis98/Covid-19-Mern.git
 ## Connect to MongoDB
 
 Use scripts on server.js to fetch data from 2 free API's provided by https://disease.sh, and store the data in your database.
+This is the API from which I fetch the data => https://disease.sh/v3/covid-19/historical?lastdays=365
+I have 365 days worth of data for each country. ( You can modify it as you like for ex: lastdays=50)
+The last updated date is 9 March 2023, so using lastdays=365 I have data from
+10 March 2022 - 9 March 2023.
 Use scripts to create an admin user in DB who will be able to perform CRUD opedations.
 Update .env file
 

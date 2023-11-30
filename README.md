@@ -36,7 +36,7 @@ The last updated date is 9 March 2023, so using lastdays=365 I have data from
 
 ---
 
-Use scripts to create an admin user in DB who will be able to perform CRUD opedations, and do not forget to put the username and the password inside the .env file.
+Use scripts to create an admin user in DB who will be able to perform CRUD operations, and do not forget to put the username and the password inside the .env file.
 Update .env file
 
 ```

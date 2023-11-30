@@ -8,8 +8,7 @@ import axios from "axios";
 
 function AdminPanel() {
   const [loading, setLoading] = useState(true);
-  const [selectedOption, setSelectedOption] = useState("modify"); // State to track selected option
-
+  const [selectedOption, setSelectedOption] = useState("modify");
   const handleOptionClick = (option) => {
     setSelectedOption(option);
   };
@@ -30,7 +29,6 @@ function AdminPanel() {
         // If successful, set loading to false
         setLoading(false);
       } catch (error) {
-        // If the request fails, you can redirect the user or handle it in some way
         console.error(error);
       }
     };

@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import InfoBox from "../../InfoBox";
-import { prettyPrintStat } from "../../util";
+import InfoBox from "../../components/InfoBox/InfoBox";
 import { Card, CardContent, Grid } from "@mui/material";
 
 function ModifyForm() {

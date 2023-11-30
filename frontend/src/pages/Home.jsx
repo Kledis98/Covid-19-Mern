@@ -1,17 +1,12 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { BrowserRouter as Router, Route, Link, Routes } from "react-router-dom";
-import LogIn from "../components/LogIn/Login";
-import "../App.css"; // Updated import path
-import InfoBox from "../InfoBox";
-import Map from "../Map";
+import "../App.css"; 
+import InfoBox from "../components/InfoBox/InfoBox";
+import Map from "../components/Map/Map";
 import { Card, CardContent, Grid } from "@mui/material";
-// import MyDatePicker from "./MyDatePicker";
-import { format } from "date-fns";
 import Table from "../components/Table/Table";
 import LineGraph from "../components/LineGraph/LineGraph";
-import { CategoryScale, Chart } from "chart.js/auto";
-import { MapContainer, TileLayer } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
 import "bootstrap/dist/css/bootstrap.css";
 import { prettyPrintStat } from "../util";
@@ -60,7 +55,6 @@ function Home() {
         try {
           const response = await axios.get("http://localhost:5000/flagsdata");
           const data = response.data;
-          console.log("Flags daaattaaa:", data);
   
           const flagCountries = data.map((country) => ({
             name: country.name,
@@ -68,14 +62,12 @@ function Home() {
   
           setFlagCountries(flagCountries);
           setMapFlagCountries(data);
-          console.log("NEWWW", flagCountries);
           // Handle the flagsData as needed in your frontend
         } catch (error) {
           console.error("Error fetching Flags Data:", error);
         }
       };
   
-      // Call the function to fetch Flags Data
       fetchFlagsData();
     }, []);
   
@@ -101,12 +93,10 @@ function Home() {
   
     const fetchData = async () => {
       try {
-        // Choose the appropriate endpoint
-        // const response = await fetch(`/covid?country=${selectedCountry}&date=${selectedDate}`);
+     
         const response = await fetch(
           `http://localhost:5000/covid?country=${selectedCountryId}&date=${selectedDate}`
         );
-            console.log("check date here : " , response)
         if (!response.ok) {
           throw new Error(`HTTP error! Status: ${response.status}`);
         }
@@ -136,11 +126,9 @@ function Home() {
               calculateDailyData(data[0], previousData[0]);
             setDailyData({ dailyCases, dailyDeaths, dailyRecoveries });
           } else {
-            console.log("No data found for the previous date.");
             setDailyData(null);
           }
         } else {
-          console.log("No data found for the selected country and date.");
           setCovidData(null);
           setDataExists(false);
         }
@@ -153,7 +141,6 @@ function Home() {
     const handleCountryChange = async (event) => {
       const newSelectedCountryId = event.target.value;
       setSelectedCountryId(newSelectedCountryId);
-      console.log("Selected Country ID:", selectedCountryId);
   
       try {
         // Make a request to your backend to get the corresponding data
@@ -161,22 +148,18 @@ function Home() {
           `http://localhost:5000/country/${newSelectedCountryId}`
         );
         const dataArray = response.data;
-        console.log("Response from server:", response); // Log the entire response
   
         const data = dataArray[0];
   
         if (data && data.lat !== undefined && data.long !== undefined) {
           // Update state with the data for the selected country
           setCountryData(data);
-          console.log("THe countrydata :", countryData);
           setMapCenter([data.lat, data.long]);
-          console.log("Setting map center to:", [data.lat, data.long]);
           setMapZoom(4);
         } else {
           console.error("Invalid data received from the server:", data);
         }
       } catch (error) {
-        console.error("Error fetching country data:", error); // Log the error object
         console.log("Error response:", error.response); // Log the error response
       }
     };
@@ -186,7 +169,6 @@ function Home() {
     };
   
     const handleFetchData = () => {
-      console.log("Selected Date for Fetch Data:", selectedDate);
       fetchData();
     };
 

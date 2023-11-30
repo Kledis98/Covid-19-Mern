@@ -21,8 +21,6 @@ export const prettyPrintStat = (stat) =>
   stat ? `+${numeral(stat).format("0.0a")}` : "+0";
 
 export const showDataOnMap = (data, casesType = "cases") => {
-  console.log("Cases Typeee:", casesType); // Add this line
-
   if (!data || !Array.isArray(data)) {
     console.error("Invalid data:", data);
     return null;
@@ -43,7 +41,6 @@ export const showDataOnMap = (data, casesType = "cases") => {
       isNaN(lat) ||
       isNaN(long)
     ) {
-      console.error("Invalid lat or long values for country:", country);
       return null;
     }
 

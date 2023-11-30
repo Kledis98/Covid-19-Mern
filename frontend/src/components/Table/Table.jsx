@@ -15,11 +15,9 @@ function CountryTable() {
         );
 
         if (response.status === 200) {
-          const sortedCountriesData = response.data.sort(
-            (a, b) => b.totalCases - a.totalCases
-          );
+          
     
-          setCountriesData(sortedCountriesData);
+          setCountriesData(response);
         }
       } catch (error) {
         console.error("Error fetching data:", error);

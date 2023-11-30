@@ -37,7 +37,7 @@ function CountryTable() {
             <tr key={country._id}>
               <td>{country.name}</td>
               <td>
-              <strong>{country.totalCases}</strong>
+              <strong>750</strong>
               </td>
             </tr>
           ))}

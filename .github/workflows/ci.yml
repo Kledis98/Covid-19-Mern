@@ -30,7 +30,7 @@ jobs:
       - name: Start Server
         run: |
           cd backend
-          npm run server &
+          npm run server
 
       - name: Cypress run for Frontend
         uses: cypress-io/github-action@v6

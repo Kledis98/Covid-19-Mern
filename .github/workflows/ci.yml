@@ -12,10 +12,28 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Setup Node.js and Install Dependencies
+      - name: Setup Node.js
         uses: actions/setup-node@v2
+        with:
+          node-version: "14"
 
-      - name: Cypress run
+      - name: Install Client Dependencies
+        run: |
+          cd client
+          npm install
+
+      - name: Install Server Dependencies
+        run: |
+          cd server
+          npm install
+
+      - name: Start Server
+        run: |
+          cd server
+          npm start &
+
+      - name: Cypress run for Client
         uses: cypress-io/github-action@v6
         with:
-          working-directory: frontend
+          working-directory: client
+          start: npm start

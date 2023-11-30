@@ -29,7 +29,6 @@ app.get("/countries", async (req, res) => {
     const countries = await Country.find({}, "_id name"); // Include both _id and name
     res.json(countries);
   } catch (error) {
-    console.error("Error fetching countries:", error);
     res.status(500).json({ error: "Internal Server Error" });
   }
 });
@@ -44,17 +43,6 @@ app.get("/country/:countryId", async (req, res) => {
     // Send the data back to the frontend
     res.json(countryData);
   } catch (error) {
-    console.error("Error fetching country data:", error);
-    res.status(500).json({ error: "Internal Server Error" });
-  }
-});
-
-app.get("/flagsdata", async (req, res) => {
-  try {
-    const flagsData = await FlagsData.find();
-    res.json(flagsData);
-  } catch (error) {
-    console.error("Error fetching FlagsData:", error);
     res.status(500).json({ error: "Internal Server Error" });
   }
 });
@@ -86,7 +74,6 @@ app.get("/covid", async (req, res) => {
 
     res.json(covid);
   } catch (error) {
-    console.error("Error fetching covid data:", error);
     res
       .status(500)
       .json({ error: "Internal Server Error", details: error.message });
@@ -134,7 +121,6 @@ app.get("/covid/countries", async (req, res) => {
 
     res.json(countriesData);
   } catch (error) {
-    console.error("Error fetching covid data:", error);
     res
       .status(500)
       .json({ error: "Internal Server Error", details: error.message });
@@ -144,7 +130,6 @@ app.get("/covid/countries", async (req, res) => {
 app.get("/covid/:countryId", async (req, res) => {
   try {
     const { countryId } = req.params;
-    console.log(`Fetching data for country: ${countryId}`);
 
     // Fetch all data for the specified country
     const covidData = await CovidData.find({ country: countryId });
@@ -155,7 +140,6 @@ app.get("/covid/:countryId", async (req, res) => {
       totalCases: entry.totalCases,
       totalDeaths: entry.totalDeaths,
       totalRecoveries: entry.totalRecoveries,
-      // Add other relevant fields if needed
     }));
 
     res.json(formattedData);
@@ -168,7 +152,6 @@ app.get("/covid/:countryId", async (req, res) => {
 app.get("/countries/:countryId", async (req, res) => {
   try {
     const { countryId } = req.params;
-    console.log(`Fetching data for country: ${countryId}`);
 
     // Fetch the country by ID
     const country = await Country.findById(countryId);
@@ -214,7 +197,6 @@ app.get("/flagsdata", async (req, res) => {
     // Return the flag data for all countries
     res.json(flagsData);
   } catch (error) {
-    console.error("Error fetching countries data:", error);
     res.status(500).json({ error: "Internal Server Error" });
   }
 });
@@ -223,6 +205,8 @@ app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
   console.log(`${process.env.DEV_PORT}`);
 });
+
+// This is the code for fetching data from an external API and storing it on mongo DB.
 
 // const fetchDataFromAPI = async () => {
 //   try {

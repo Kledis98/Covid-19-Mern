@@ -118,6 +118,7 @@ function LineGraph({ selectedCountryId }) {
     <div>
       {Array.isArray(data) && data.length > 0 && (
         <Line
+          data-test="line-graph"
           data={{
             datasets: [
               {

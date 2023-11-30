@@ -200,6 +200,7 @@ function Home() {
               <div className="app__options">
                 <div className="app__dropdown">
                   <select
+                  data-test="country-dropdown"
                     title="Some placeholder text..."
                     className="form-select mb-3 "
                     value={selectedCountryId}
@@ -222,6 +223,7 @@ function Home() {
                 <div className="date-container">
                   <label htmlFor="date">Select Date:</label>
                   <input
+                  data-test="date-input"
                     type="date"
                     id="date"
                     value={selectedDate}
@@ -230,6 +232,7 @@ function Home() {
                 </div>
                 <div>
                   <button
+                  data-test="fetch-button"
                     type="button"
                     onClick={handleFetchData}
                     className="btn btn-success fetch-button"
@@ -238,12 +241,15 @@ function Home() {
                   </button>
                 </div>
               </div>
-              <Grid container spacing={3}>
+              <Grid container spacing={3}
+               data-test="grid-container"
+                 >
                 {/* Display the total data */}
                 {covidData &&
                   covidData.map((entry) => (
                     <React.Fragment key={entry._id}>
-                      <Grid item xs={4}>
+                      <Grid item xs={4}
+                       data-test="grid-first-row">
                         <InfoBox
                           onClick={(e) => setCasesType("cases")}
                           title="Total Cases"
@@ -273,7 +279,7 @@ function Home() {
                 {/* Display the daily data */}
                 {dailyData &&  dataExists && (
                   <React.Fragment>
-                    <Grid item xs={4}>
+                    <Grid item xs={4} data-test="grid-second-row">
                       <InfoBox
                         title="Daily Cases"
                         cases={prettyPrintStat(dailyData.dailyCases)}
@@ -307,13 +313,15 @@ function Home() {
             </div>
     
             <Card className="app__right">
-              <CardContent>
+              <CardContent
+                data-test = "table-linegraph-right">
                 <h3>Total Cases by Country</h3>
                 <Table />
                 {countryData && countryData.name && (
                   <h3>Historical cases of {countryData.name}</h3>
                 )}
-                <LineGraph selectedCountryId={selectedCountryId} />
+                <LineGraph selectedCountryId={selectedCountryId}
+                />
               </CardContent>
             </Card>
           </div>
@@ -323,7 +331,10 @@ function Home() {
               className="flex-shrink-0 py-2 bg-dark text-white-50"
             >
               <div className="container text-center">
-                <Link to="/login">Log In</Link>
+                <Link
+                data-test = "login-button"
+                to="/login">Log In
+                </Link>
               </div>
             </footer>
           </div>

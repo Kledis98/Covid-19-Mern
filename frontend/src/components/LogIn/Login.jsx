@@ -16,7 +16,7 @@ function LogIn() {
     event.preventDefault();
 
     try {
-      const response = await axios.post("http://localhost:5000/login", {
+      const response = await axios.post("https://covid-19-tracker-mt79.onrender.com/login", {
         username,
         password,
       });

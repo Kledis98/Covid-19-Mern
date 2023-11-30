@@ -17,7 +17,9 @@ function ModifyForm() {
   useEffect(() => {
     const fetchCountries = async () => {
       try {
-        const response = await axios.get("http://localhost:5000/countries");
+        const response = await axios.get(
+          "https://covid-19-tracker-mt79.onrender.com/countries"
+        );
         if (response.status === 200) {
           setCountries(response.data);
         }
@@ -32,7 +34,7 @@ function ModifyForm() {
   const fetchData = async () => {
     try {
       const response = await fetch(
-        `http://localhost:5000/covid?country=${selectedCountry}&date=${selectedDate}`
+        `https://covid-19-tracker-mt79.onrender.com/covid?country=${selectedCountry}&date=${selectedDate}`
       );
 
       if (!response.ok) {
@@ -58,7 +60,7 @@ function ModifyForm() {
     try {
       // Make a request to your backend to get the corresponding data
       const response = await axios.get(
-        `http://localhost:5000/country/${newSelectedCountry}`
+        `https://covid-19-tracker-mt79.onrender.com/country/${newSelectedCountry}`
       );
       const dataArray = response.data;
 
@@ -95,7 +97,7 @@ function ModifyForm() {
 
       // Make a request to update data
       const response = await axios.put(
-        `http://localhost:5000/covid/${selectedCountry}/${selectedDate}`,
+        `https://covid-19-tracker-mt79.onrender.com/covid/${selectedCountry}/${selectedDate}`,
         {
           totalCases,
           totalDeaths,

@@ -53,7 +53,7 @@ function Home() {
     useEffect(() => {
       const fetchFlagsData = async () => {
         try {
-          const response = await axios.get("http://localhost:5000/flagsdata");
+          const response = await axios.get("https://covid-19-tracker-mt79.onrender.com/flagsdata");
           const data = response.data;
   
           const flagCountries = data.map((country) => ({
@@ -95,7 +95,7 @@ function Home() {
       try {
      
         const response = await fetch(
-          `http://localhost:5000/covid?country=${selectedCountryId}&date=${selectedDate}`
+          `https://covid-19-tracker-mt79.onrender.com/covid?country=${selectedCountryId}&date=${selectedDate}`
         );
         if (!response.ok) {
           throw new Error(`HTTP error! Status: ${response.status}`);
@@ -111,7 +111,7 @@ function Home() {
           // Fetch data for the previous date
           const previousDate = getPreviousDate(selectedDate);
           const previousResponse = await fetch(
-            `http://localhost:5000/covid?country=${selectedCountryId}&date=${previousDate}`
+            `https://covid-19-tracker-mt79.onrender.com/covid?country=${selectedCountryId}&date=${previousDate}`
           );
   
           if (!previousResponse.ok) {
@@ -145,7 +145,7 @@ function Home() {
       try {
         // Make a request to your backend to get the corresponding data
         const response = await axios.get(
-          `http://localhost:5000/country/${newSelectedCountryId}`
+          `https://covid-19-tracker-mt79.onrender.com/country/${newSelectedCountryId}`
         );
         const dataArray = response.data;
   

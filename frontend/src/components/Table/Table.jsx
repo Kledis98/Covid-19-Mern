@@ -11,7 +11,7 @@ function CountryTable() {
     const fetchData = async () => {
       try {
         const response = await axios.get(
-          "http://localhost:5000/covid/countries?date=2023-03-08"
+          "https://covid-19-tracker-mt79.onrender.com/countries?date=2023-03-08"
         );
 
         if (response.status === 200) {

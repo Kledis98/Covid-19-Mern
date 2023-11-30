@@ -20,11 +20,14 @@ function AdminPanel() {
         const token = localStorage.getItem("access_token");
 
         // Make a request to the protected route on your server
-        const response = await axios.get("http://localhost:5000/admin-panel", {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        });
+        const response = await axios.get(
+          "https://covid-19-tracker-mt79.onrender.com/admin-panel",
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
 
         // If successful, set loading to false
         setLoading(false);

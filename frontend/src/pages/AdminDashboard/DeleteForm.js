@@ -13,7 +13,9 @@ function DeleteForm() {
   useEffect(() => {
     const fetchCountries = async () => {
       try {
-        const response = await axios.get("http://localhost:5000/countries");
+        const response = await axios.get(
+          "https://covid-19-tracker-mt79.onrender.com/countries"
+        );
         if (response.status === 200) {
           setCountries(response.data);
         }
@@ -28,7 +30,7 @@ function DeleteForm() {
   const fetchData = async () => {
     try {
       const response = await fetch(
-        `http://localhost:5000/covid?country=${selectedCountry}&date=${selectedDate}`
+        `https://covid-19-tracker-mt79.onrender.com/covid?country=${selectedCountry}&date=${selectedDate}`
       );
 
       if (!response.ok) {
@@ -54,7 +56,7 @@ function DeleteForm() {
     try {
       // Make a request to your backend to get the corresponding data
       const response = await axios.get(
-        `http://localhost:5000/country/${newSelectedCountry}`
+        `https://covid-19-tracker-mt79.onrender.com/country/${newSelectedCountry}`
       );
       const dataArray = response.data;
 
@@ -84,7 +86,7 @@ function DeleteForm() {
 
       // Make a request to delete data
       const response = await axios.delete(
-        `http://localhost:5000/covid/${selectedCountry}/${selectedDate}`
+        `https://covid-19-tracker-mt79.onrender.com/covid/${selectedCountry}/${selectedDate}`
       );
 
       if (response.status === 200) {

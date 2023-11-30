@@ -75,7 +75,7 @@ function LineGraph({ selectedCountryId }) {
     const fetchData = async () => {
       try {
         const response = await axios.get(
-          `http://localhost:5000/covid/${selectedCountryId}`
+          `https://covid-19-tracker-mt79.onrender.com/covid/${selectedCountryId}`
         );
 
         if (response.status === 200) {
@@ -85,7 +85,7 @@ function LineGraph({ selectedCountryId }) {
 
           // Fetch country name based on the selectedCountryId
           const countryResponse = await axios.get(
-            `http://localhost:5000/countries/${selectedCountryId}`
+            `https://covid-19-tracker-mt79.onrender.com/countries/${selectedCountryId}`
           );
 
           if (countryResponse.status === 200) {

@@ -17,23 +17,23 @@ jobs:
         with:
           node-version: "14"
 
-      - name: Install Client Dependencies
+      - name: Install Frontend Dependencies
         run: |
-          cd client
+          cd frontend
           npm install
 
       - name: Install Server Dependencies
         run: |
-          cd server
+          cd backend
           npm install
 
       - name: Start Server
         run: |
-          cd server
-          npm start &
+          cd backend
+          npm run server &
 
-      - name: Cypress run for Client
+      - name: Cypress run for Frontend
         uses: cypress-io/github-action@v6
         with:
-          working-directory: client
+          working-directory: frontend
           start: npm start

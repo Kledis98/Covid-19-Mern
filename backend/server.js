@@ -59,38 +59,6 @@ app.get("/flagsdata", async (req, res) => {
   }
 });
 
-// // Endpoint to get data for a specific country
-// app.get("/country/:countryName", async (req, res) => {
-//   const { countryName } = req.params;
-
-//   try {
-//     // Find the Country document
-//     const country = await Country.findOne({ name: countryName });
-
-//     if (!country) {
-//       return res.status(404).json({ error: "Country not found" });
-//     }
-
-//     // Find related data from the FlagsData collection
-//     const flagsData = await FlagsData.findOne({ country: country._id });
-
-//     if (!flagsData) {
-//       return res.status(404).json({ error: "Data not found for the country" });
-//     }
-
-//     // Combine data and send it to the client
-//     const combinedData = {
-//       country,
-//       flagsData,
-//     };
-
-//     res.json(combinedData);
-//   } catch (error) {
-//     console.error("Error fetching country data:", error);
-//     res.status(500).json({ error: "Internal Server Error" });
-//   }
-// });
-
 app.get("/covid", async (req, res) => {
   try {
     const { country, date } = req.query;

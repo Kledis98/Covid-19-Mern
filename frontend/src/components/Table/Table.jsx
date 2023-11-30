@@ -15,9 +15,11 @@ function CountryTable() {
         );
 
         if (response.status === 200) {
-          
+          const sortedCountriesData = response.data.sort(
+            (a, b) => b.totalCases - a.totalCases
+          );
     
-          setCountriesData(response);
+          setCountriesData(sortedCountriesData);
         }
       } catch (error) {
         console.error("Error fetching data:", error);
@@ -35,7 +37,7 @@ function CountryTable() {
             <tr key={country._id}>
               <td>{country.name}</td>
               <td>
-              <td>{country.totalCases}</td>
+              <strong>{numeral(country.totalCases).format("0,0")}</strong>
               </td>
             </tr>
           ))}

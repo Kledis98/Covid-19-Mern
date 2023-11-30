@@ -177,7 +177,7 @@ function Home() {
           <div className="app">
             <div className="app__left">
               <div className="app__header">
-                <h1>Covid 19</h1>
+                <h1>COVID-19 Tracker</h1>
               </div>
               <div className="app__options">
                 <div className="app__dropdown">

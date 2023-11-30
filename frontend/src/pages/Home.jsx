@@ -38,7 +38,7 @@ function Home() {
     useEffect(() => {
       const fetchCountries = async () => {
         try {
-          const response = await axios.get("http://localhost:5000/countries");
+          const response = await axios.get("https://covid-19-tracker-mt79.onrender.com/countries");
           if (response.status === 200) {
             setCountries(response.data);
           }

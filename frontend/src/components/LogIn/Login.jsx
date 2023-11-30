@@ -21,7 +21,6 @@ function LogIn() {
         password,
       });
 
-      console.log("Login Response:", response);
 
 
       setCookies("access_token", response.data.token);
@@ -33,7 +32,6 @@ function LogIn() {
 
       // Check the response status before navigating
       if (isValidToken) {
-        console.log("Valid Token. Navigating to admin-panel");
         navigate("/admin-panel");
       } else {
         setErrorMessage("Invalid credentials");

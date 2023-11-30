@@ -11,7 +11,7 @@ function AddForm() {
   const [covidData, setCovidData] = useState(null);
   const [countryData, setCountryData] = useState(null);
   const [loading, setLoading] = useState(false);
-  const [addMessage, setAddMessage] = useState(""); // New state for delete message
+  const [addMessage, setAddMessage] = useState("");
 
   useEffect(() => {
     const fetchCountries = async () => {
@@ -30,8 +30,6 @@ function AddForm() {
 
   const fetchData = async () => {
     try {
-      // Choose the appropriate endpoint
-      // const response = await fetch(`/covid?country=${selectedCountry}&date=${selectedDate}`);
       const response = await fetch(
         `http://localhost:5000/covid?country=${selectedCountry}&date=${selectedDate}`
       );
@@ -56,7 +54,6 @@ function AddForm() {
   const handleCountryChange = async (event) => {
     const newSelectedCountry = event.target.value;
     setSelectedCountry(newSelectedCountry);
-    console.log("Selected Country ID:", selectedCountry);
 
     try {
       // Make a request to your backend to get the corresponding data
@@ -64,7 +61,6 @@ function AddForm() {
         `http://localhost:5000/country/${newSelectedCountry}`
       );
       const dataArray = response.data;
-      console.log("Response from server:", response); // Log the entire response
 
       const data = dataArray[0];
 
@@ -77,8 +73,7 @@ function AddForm() {
         console.error("Invalid data received from the server:", data);
       }
     } catch (error) {
-      console.error("Error fetching country data:", error); // Log the error object
-      console.log("Error response:", error.response); // Log the error response
+      console.log("Error response:", error.response);
     }
   };
 
@@ -97,7 +92,6 @@ function AddForm() {
       const existingData = existingDataResponse.data;
 
       if (existingData && existingData.length > 0) {
-        console.log("Data already exists for the selected country and date");
         setAddMessage("Data already exists for the selected country and date");
       } else {
         // Data doesn't exist, proceed with adding
@@ -111,10 +105,8 @@ function AddForm() {
         );
 
         if (response.status === 201) {
-          console.log("Data added successfully");
           setAddMessage("Data added successfully");
         } else {
-          console.error("Failed to add data");
           setAddMessage("Failed to add data");
         }
 
@@ -124,7 +116,6 @@ function AddForm() {
 
       setLoading(false);
     } catch (error) {
-      console.error("Error adding data:", error);
       setLoading(false);
     }
   };

@@ -31,8 +31,6 @@ function ModifyForm() {
 
   const fetchData = async () => {
     try {
-      // Choose the appropriate endpoint
-      // const response = await fetch(`/covid?country=${selectedCountry}&date=${selectedDate}`);
       const response = await fetch(
         `http://localhost:5000/covid?country=${selectedCountry}&date=${selectedDate}`
       );
@@ -46,7 +44,6 @@ function ModifyForm() {
       if (data && data.length > 0) {
         setCovidData(data);
       } else {
-        console.log("No data found for the selected country and date.");
         setCovidData(null);
       }
     } catch (error) {
@@ -57,7 +54,6 @@ function ModifyForm() {
   const handleCountryChange = async (event) => {
     const newSelectedCountry = event.target.value;
     setSelectedCountry(newSelectedCountry);
-    console.log("Selected Country ID:", selectedCountry);
 
     try {
       // Make a request to your backend to get the corresponding data
@@ -65,7 +61,6 @@ function ModifyForm() {
         `http://localhost:5000/country/${newSelectedCountry}`
       );
       const dataArray = response.data;
-      console.log("Response from server:", response); // Log the entire response
 
       const data = dataArray[0];
 
@@ -78,8 +73,7 @@ function ModifyForm() {
         console.error("Invalid data received from the server:", data);
       }
     } catch (error) {
-      console.error("Error fetching country data:", error); // Log the error object
-      console.log("Error response:", error.response); // Log the error response
+      console.log("Error response:", error.response);
     }
   };
 
@@ -88,7 +82,6 @@ function ModifyForm() {
   };
 
   const handleFetchData = async () => {
-    console.log("Selected Date for Fetch Data:", selectedDate);
     setLoading(true);
 
     await fetchData();
@@ -107,15 +100,9 @@ function ModifyForm() {
           totalCases,
           totalDeaths,
           totalRecoveries,
-          // Add more fields as needed
         }
       );
 
-      // Log the response (for debugging)
-      console.log("Modify Data Response:", response);
-
-      // If the modification was successful, you might want to update the UI or show a success message
-      // For example, you can fetch the data again to reflect the changes
       fetchData();
 
       // Reset the input fields
@@ -126,10 +113,8 @@ function ModifyForm() {
       // Stop loading state
       setLoading(false);
     } catch (error) {
-      // Handle errors
       console.error("Error modifying data:", error);
 
-      // Stop loading state
       setLoading(false);
     }
   };

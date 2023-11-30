@@ -8,7 +8,7 @@ function DeleteForm() {
   const [covidData, setCovidData] = useState(null);
   const [countryData, setCountryData] = useState(null);
   const [loading, setLoading] = useState(false);
-  const [deleteMessage, setDeleteMessage] = useState(""); // New state for delete message
+  const [deleteMessage, setDeleteMessage] = useState("");
 
   useEffect(() => {
     const fetchCountries = async () => {
@@ -27,8 +27,6 @@ function DeleteForm() {
 
   const fetchData = async () => {
     try {
-      // Choose the appropriate endpoint
-      // const response = await fetch(`/covid?country=${selectedCountry}&date=${selectedDate}`);
       const response = await fetch(
         `http://localhost:5000/covid?country=${selectedCountry}&date=${selectedDate}`
       );
@@ -42,7 +40,6 @@ function DeleteForm() {
       if (data && data.length > 0) {
         setCovidData(data);
       } else {
-        console.log("No data found for the selected country and date.");
         setCovidData(null);
       }
     } catch (error) {
@@ -53,7 +50,6 @@ function DeleteForm() {
   const handleCountryChange = async (event) => {
     const newSelectedCountry = event.target.value;
     setSelectedCountry(newSelectedCountry);
-    console.log("Selected Country ID:", selectedCountry);
 
     try {
       // Make a request to your backend to get the corresponding data
@@ -61,7 +57,6 @@ function DeleteForm() {
         `http://localhost:5000/country/${newSelectedCountry}`
       );
       const dataArray = response.data;
-      console.log("Response from server:", response); // Log the entire response
 
       const data = dataArray[0];
 
@@ -74,7 +69,6 @@ function DeleteForm() {
         console.error("Invalid data received from the server:", data);
       }
     } catch (error) {
-      console.error("Error fetching country data:", error); // Log the error object
       console.log("Error response:", error.response); // Log the error response
     }
   };
@@ -94,10 +88,8 @@ function DeleteForm() {
       );
 
       if (response.status === 200) {
-        console.log("Data deleted successfully");
         setDeleteMessage("Data deleted successfully");
       } else if (response.status === 404) {
-        console.log("No data found for the given country and date.");
         setDeleteMessage("No data found for the given country and date");
       }
 

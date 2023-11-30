@@ -64,7 +64,7 @@ function LineGraph({ selectedCountryId }) {
     let chartData = [];
     for (let entry of data) {
       let newDataPoint = {
-        x: moment(entry.date).format("MM/DD/YYYY"), // Format the date
+        x: moment(entry.date).format("MM/DD/YYYY"),
         y: entry.totalCases,
       };
       chartData.push(newDataPoint);
@@ -82,7 +82,6 @@ function LineGraph({ selectedCountryId }) {
           const data = response.data;
           let chartData = buildChartData(data);
           setData(chartData);
-          console.log("Fetched data:", data);
 
           // Fetch country name based on the selectedCountryId
           const countryResponse = await axios.get(
@@ -90,8 +89,6 @@ function LineGraph({ selectedCountryId }) {
           );
 
           if (countryResponse.status === 200) {
-            console.log("Fetched COUNTRYYYYY data:", countryResponse);
-
             setCountryName(countryResponse.data.name);
           } else {
             console.error(
@@ -118,7 +115,7 @@ function LineGraph({ selectedCountryId }) {
     <div>
       {Array.isArray(data) && data.length > 0 && (
         <Line
-          data-test="line-graph"
+          data-test="table-linegraph-right"
           data={{
             datasets: [
               {

@@ -37,7 +37,11 @@ function CountryTable() {
             <tr key={country._id}>
               <td>{country.name}</td>
               <td>
+              {country.totalCases !== undefined ? (
               <strong>{numeral(country.totalCases).format("0,0")}</strong>
+            ) : (
+              "N/A"
+            )}            
               </td>
             </tr>
           ))}

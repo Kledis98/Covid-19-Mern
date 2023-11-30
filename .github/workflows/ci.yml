@@ -9,6 +9,6 @@ jobs:
         with:
           node-version: 20.9
           cache: "npm"
-          cache-dependency-path: fronted/package-lock.json
+          cache-dependency-path: frontend/package-lock.json
       - run: npm ci
       - run: npm test

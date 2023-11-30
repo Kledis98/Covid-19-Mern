@@ -3,9 +3,9 @@ import axios from "axios";
 import "./Table.css";
 import numeral from "numeral";
 
-
 function CountryTable() {
   const [countriesData, setCountriesData] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -23,6 +23,8 @@ function CountryTable() {
         }
       } catch (error) {
         console.error("Error fetching data:", error);
+      } finally {
+        setLoading(false);
       }
     };
 
@@ -30,23 +32,24 @@ function CountryTable() {
   }, []);
 
   return (
-    
-      <div className="table">
-       
-          {countriesData.map((country) => (
-            <tr key={country._id}>
-              <td>{country.name}</td>
-              <td>
+    <div className="table">
+      {loading ? (
+        <p>Loading...</p>
+      ) : (
+        countriesData.map((country) => (
+          <tr key={country._id}>
+            <td>{country.name}</td>
+            <td>
               {country.totalCases !== undefined ? (
-              <strong>{numeral(country.totalCases).format("0,0")}</strong>
-            ) : (
-              "N/A"
-            )}            
-              </td>
-            </tr>
-          ))}
-      </div>
-    
+                <strong>{numeral(country.totalCases).format("0,0")}</strong>
+              ) : (
+                "N/A"
+              )}
+            </td>
+          </tr>
+        ))
+      )}
+    </div>
   );
 }
 

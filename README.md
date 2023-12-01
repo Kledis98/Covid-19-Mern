@@ -9,6 +9,10 @@ MongoDB, Expressjs, React, Nodejs
 
 > Track and visualize the latest COVID-19 data with my MERN (MongoDB, Express.js, React.js, Node.js) stack-based application. Stay informed about the global pandemic's impact on different countries, explore historical data, and gain insights through interactive charts and maps. The project integrates real-time data from reliable sources, providing a comprehensive tool for monitoring and understanding the ongoing situation.
 
+## deployed project
+
+https://master--zingy-brioche-c6193c.netlify.app/
+
 ## clone or download
 
 ```terminal

@@ -11,7 +11,6 @@ const { parseISO } = require("date-fns");
 const { ObjectId } = mongoose.Types;
 const FlagsData = require("./Models/Flag");
 const bodyParser = require("body-parser");
-const connectDB = require("./config/db");
 
 const app = express();
 app.use(cors());
@@ -22,7 +21,9 @@ app.use(adminUserRouter);
 
 // MongoDB connection and schema/model definitions...
 
-connectDB();
+const uri = process.env.MONGO_URI;
+
+mongoose.connect(uri);
 
 app.get("/countries", async (req, res) => {
   try {

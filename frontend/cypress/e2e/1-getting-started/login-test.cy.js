@@ -6,7 +6,7 @@ describe("Login Button", () => {
     cy.visit("http://localhost:3000/"); // Update the URL as needed
 
     // Click the login button
-    cy.get('[data-test = "login-admin-button"]').click();
+    cy.get('[data-test = "login-button"]').click();
 
     // Wait for the navigation to complete
     cy.url().should("include", "/login");

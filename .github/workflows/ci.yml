@@ -1,39 +1,18 @@
-name: End-to-end tests
+name: Cypress Tests
 
-on:
-  push:
-    branches:
-      - master
+on: [push]
 
 jobs:
   cypress-run:
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v3
 
-      - name: Setup Node.js
-        uses: actions/setup-node@v2
+      # Install NPM dependencies, cache them correctly
+      # and run all Cypress tests
+      - name: Cypress run
+        uses: cypress-io/github-action@v5
         with:
-          node-version: "16"
-
-      - name: Install Frontend Dependencies
-        run: |
-          cd frontend
-          npm install
-
-      - name: Install Server Dependencies
-        run: |
-          cd backend
-          npm install
-
-      - name: Start Server
-        run: |
-          cd backend
-          npm run server
-
-      - name: Cypress run for Frontend
-        uses: cypress-io/github-action@v6
-        with:
-          working-directory: frontend
-          start: npm start
+          build: npm run build
+          start: npm run server

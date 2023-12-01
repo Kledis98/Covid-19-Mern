@@ -23,7 +23,16 @@ app.use(adminUserRouter);
 
 const uri = process.env.MONGO_URI;
 
-mongoose.connect(uri);
+const connectDB = async () => {
+  try {
+    await mongoose.connect(uri);
+    console.log("Connected to MongoDB");
+  } catch (error) {
+    console.error("Error connecting to MongoDB:", error.message);
+  }
+};
+
+connectDB();
 
 app.get("/countries", async (req, res) => {
   try {

@@ -1,0 +1,28 @@
+version: "3"
+services:
+  client:
+    build:
+      context: ./frontend
+    ports:
+      - "3000:3000"
+    depends_on:
+      - server
+
+  server:
+    build:
+      context: ./backend
+    ports:
+      - "5000:5000"
+    environment:
+      - ./backend/.env
+    depends_on:
+      - mongo
+
+  mongo:
+    image: "mongo"
+    ports:
+      - "27017:27017"
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=root
+      - MONGO_INITDB_ROOT_PASSWORD=example
+      - MONGO_INITDB_DATABASE=events

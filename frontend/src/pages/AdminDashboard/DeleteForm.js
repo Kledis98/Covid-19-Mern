@@ -110,7 +110,11 @@ function DeleteForm() {
             <h2>Delete Data</h2>
             <div className="mb-2">
               <label>Select Country:</label>
-              <select value={selectedCountry} onChange={handleCountryChange}>
+              <select
+                data-test="delete-country-dropdown"
+                value={selectedCountry}
+                onChange={handleCountryChange}
+              >
                 <option value="" disabled>
                   Select a country
                 </option>
@@ -125,6 +129,7 @@ function DeleteForm() {
             <div className="mb-3">
               <label htmlFor="date">Select Date:</label>
               <input
+                data-test="delete-date-picker"
                 type="date"
                 id="date"
                 value={selectedDate}
@@ -132,10 +137,16 @@ function DeleteForm() {
               />
             </div>
             {deleteMessage && (
-              <div className="delete-message">{deleteMessage}</div>
+              <div
+                data-test="success-message-deleted-data"
+                className="delete-message"
+              >
+                {deleteMessage}
+              </div>
             )}
             <div>
               <button
+                data-test="delete-data-button"
                 type="button"
                 onClick={handleDeleteData}
                 className={`btn btn-danger `}

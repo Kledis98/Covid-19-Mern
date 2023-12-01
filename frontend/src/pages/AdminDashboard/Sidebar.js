@@ -36,7 +36,7 @@ function Sidebar({ onOptionClick }) {
           className="list-group-item py-2 my-1"
         >
           <DatabaseFillGear className="me-3 fs-4" />
-          <span>Modify</span>
+          <span data-test="modify-data-option">Modify</span>
         </a>
 
         <a
@@ -44,18 +44,18 @@ function Sidebar({ onOptionClick }) {
           className="list-group-item py-2 my-1"
         >
           <FileEarmarkPlusFill className="me-3 fs-4" />
-          <span>Add</span>
+          <span data-test="add-data-option-sidebar">Add</span>
         </a>
         <a
           onClick={() => onOptionClick("delete")}
           className="list-group-item py-2 my-1"
         >
           <FileEarmarkMinusFill className="me-3 fs-4" />
-          <span>Delete</span>
+          <span data-test="delete-option-sidebar">Delete</span>
         </a>
         <a onClick={logout} className="list-group-item py-2 my-1">
           <PlugFill className="me-3 fs-4" />
-          <span>Logout</span>
+          <span data-test="logout-button">Logout</span>
         </a>
       </div>
     </div>

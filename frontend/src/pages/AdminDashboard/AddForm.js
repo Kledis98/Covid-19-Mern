@@ -130,7 +130,11 @@ function AddForm() {
             <h2>Add Data</h2>
             <div className="mb-2">
               <label>Select Country:</label>
-              <select value={selectedCountry} onChange={handleCountryChange}>
+              <select
+                data-test="add-country-dropdown"
+                value={selectedCountry}
+                onChange={handleCountryChange}
+              >
                 <option value="" disabled>
                   Select a country
                 </option>
@@ -145,6 +149,7 @@ function AddForm() {
             <div className="mb-3">
               <label htmlFor="date">Select Date:</label>
               <input
+                data-test="add-date-picker"
                 type="date"
                 id="date"
                 value={selectedDate}
@@ -154,6 +159,7 @@ function AddForm() {
             <div className="mb-3">
               <label htmlFor="totalCases">Total Cases:</label>
               <input
+                data-test="add-total-cases"
                 type="number"
                 id="totalCases"
                 value={totalCases}
@@ -164,6 +170,7 @@ function AddForm() {
             <div className="mb-3">
               <label htmlFor="totalDeaths">Total Deaths:</label>
               <input
+                data-test="add-total-deaths"
                 type="number"
                 id="totalDeaths"
                 value={totalDeaths}
@@ -174,6 +181,7 @@ function AddForm() {
             <div className="mb-3">
               <label htmlFor="totalRecoveries">Total Recoveries:</label>
               <input
+                data-test="add-total-recoveries"
                 type="number"
                 id="totalRecoveries"
                 value={totalRecoveries}
@@ -181,10 +189,13 @@ function AddForm() {
               />
             </div>
 
-            {addMessage && <div>{addMessage}</div>}
+            {addMessage && (
+              <div data-test="success-message-added-data">{addMessage}</div>
+            )}
 
             <div>
               <button
+                data-test="add-data-button"
                 type="button"
                 onClick={handleAddData}
                 className={`btn btn-success `}

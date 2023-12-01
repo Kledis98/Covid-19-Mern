@@ -52,8 +52,6 @@ function AdminPanel() {
           {selectedOption === "modify" && <ModifyForm />}{" "}
           {selectedOption === "add" && <AddForm />}{" "}
           {selectedOption === "delete" && <DeleteForm />}
-          {/* Render ModifyForm if 'modify' is selected */}
-          {/* Add similar conditions for other options */}
         </div>
       </div>
     </div>

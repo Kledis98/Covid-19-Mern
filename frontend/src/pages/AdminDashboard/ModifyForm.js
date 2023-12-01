@@ -129,7 +129,11 @@ function ModifyForm() {
             <h2>Modify Data</h2>
             <div className="mb-2">
               <label>Select Country:</label>
-              <select value={selectedCountry} onChange={handleCountryChange}>
+              <select
+                data-test="modify-country-dropdown"
+                value={selectedCountry}
+                onChange={handleCountryChange}
+              >
                 <option value="" disabled>
                   Select a country
                 </option>
@@ -144,6 +148,7 @@ function ModifyForm() {
             <div className="mb-3">
               <label htmlFor="date">Select Date:</label>
               <input
+                data-test="modify-date-input"
                 type="date"
                 id="date"
                 value={selectedDate}
@@ -152,6 +157,7 @@ function ModifyForm() {
             </div>
             <div>
               <button
+                data-test="modify-fetch-button"
                 type="button"
                 onClick={handleFetchData}
                 className="btn btn-success "
@@ -160,21 +166,21 @@ function ModifyForm() {
               </button>
               <hr></hr>
             </div>
-            <Grid container spacing={3} className="mb-3">
+            <Grid data-test="info-box" container spacing={3} className="mb-3">
               {/* Display the total data */}
               {covidData &&
                 covidData.map((entry) => (
                   <React.Fragment key={entry._id}>
-                    <Grid item xs={4}>
+                    <Grid data-test="info-box-total-cases" item xs={4}>
                       <InfoBox title="Total Cases" cases={entry.totalCases} />
                     </Grid>
-                    <Grid item xs={4}>
+                    <Grid data-test="info-box-total-recoveries" item xs={4}>
                       <InfoBox
                         title="Total Recoveries"
                         cases={entry.totalRecoveries}
                       />
                     </Grid>
-                    <Grid item xs={4}>
+                    <Grid data-test="info-box-total-deaths" item xs={4}>
                       <InfoBox title="Total Deaths" cases={entry.totalDeaths} />
                     </Grid>
                   </React.Fragment>
@@ -184,6 +190,7 @@ function ModifyForm() {
               <div className="mb-2 mt-2">
                 <label htmlFor="totalCases">Total Cases:</label>
                 <input
+                  data-test="modify-totalCases"
                   type="number"
                   id="totalCases"
                   value={totalCases}
@@ -193,6 +200,7 @@ function ModifyForm() {
               <div className="mb-2 ">
                 <label htmlFor="totalRecoveries">Total Recoveries:</label>
                 <input
+                  data-test="modify-totalRecoveries"
                   type="number"
                   id="totalRecoveries"
                   value={totalRecoveries}
@@ -202,6 +210,7 @@ function ModifyForm() {
               <div className="mb-3 ">
                 <label htmlFor="totalDeaths">Total Deaths:</label>
                 <input
+                  data-test="modify-totalDeaths"
                   type="number"
                   id="totalDeaths"
                   value={totalDeaths}
@@ -210,6 +219,7 @@ function ModifyForm() {
               </div>
               <div>
                 <button
+                  data-test="modify-data-button"
                   type="button"
                   onClick={handleModifyData}
                   className={`btn btn-primary`}

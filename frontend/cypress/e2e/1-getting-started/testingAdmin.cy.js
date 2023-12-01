@@ -6,7 +6,7 @@ describe("Login Test", () => {
 
     cy.get('[data-test="password-input"]').type("kledis123");
 
-    cy.get('[data-test="login-button"]').click();
+    cy.get('[data-test="login-admin-button"]').click();
 
     cy.url().should("eq", "http://localhost:3000/admin-panel");
   });

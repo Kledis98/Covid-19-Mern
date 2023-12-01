@@ -143,7 +143,6 @@ function Home() {
       setSelectedCountryId(newSelectedCountryId);
   
       try {
-        // Make a request to your backend to get the corresponding data
         const response = await axios.get(
           `https://covid-19-tracker-mt79.onrender.com/country/${newSelectedCountryId}`
         );
@@ -160,7 +159,7 @@ function Home() {
           console.error("Invalid data received from the server:", data);
         }
       } catch (error) {
-        console.log("Error response:", error.response); // Log the error response
+        console.log("Error response:", error.response); 
       }
     };
   

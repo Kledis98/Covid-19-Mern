@@ -61,6 +61,7 @@ function LogIn() {
                     <form onSubmit={handleSubmit}>
                       <div className="form-outline form-white mb-4">
                         <input
+                        data-test="username-input"
                           type="text"
                           id="username"
                           value={username}
@@ -76,6 +77,7 @@ function LogIn() {
 
                       <div className="form-outline form-white mb-4">
                         <input
+                        data-test="password-input"
                           type="password"
                           id="password"
                           value={password}
@@ -90,6 +92,7 @@ function LogIn() {
                       </div>
 
                       <button
+                      data-test = "login-admin-button"
                         className="btn btn-outline-light btn-lg px-5"
                         type="submit"
                       >

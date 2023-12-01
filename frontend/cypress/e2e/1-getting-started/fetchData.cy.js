@@ -1,6 +1,4 @@
-// cypress/integration/your_test_spec.js
-
-describe("Your Test Suite", () => {
+describe("Testing country select dropdown", () => {
   it("should display the selected country in the dropdown", () => {
     cy.visit("http://localhost:3000");
 

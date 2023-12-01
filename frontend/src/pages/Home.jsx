@@ -233,6 +233,7 @@ function Home() {
                       <Grid item xs={4}
                        data-test="grid-first-row">
                         <InfoBox
+                        data-test="info-box"
                           onClick={(e) => setCasesType("cases")}
                           title="Total Cases"
                           cases={prettyPrintStat(entry.totalCases)}
@@ -240,6 +241,7 @@ function Home() {
                       </Grid>
                       <Grid item xs={4}>
                         <InfoBox
+                        data-test="info-box"
                           onClick={(e) => {
                             setCasesType("recovered");
                             console.log(casesType);
@@ -250,6 +252,7 @@ function Home() {
                       </Grid>
                       <Grid item xs={4}>
                         <InfoBox
+                        data-test="info-box"
                           onClick={(e) => setCasesType("deaths")}
                           title="Total Deaths"
                           cases={prettyPrintStat(entry.totalDeaths)}
@@ -263,18 +266,21 @@ function Home() {
                   <React.Fragment>
                     <Grid item xs={4} data-test="grid-second-row">
                       <InfoBox
+                      data-test="info-box"
                         title="Daily Cases"
                         cases={prettyPrintStat(dailyData.dailyCases)}
                       ></InfoBox>
                     </Grid>
                     <Grid item xs={4}>
                       <InfoBox
+                      data-test="info-box"
                         title="Daily Recoveries"
                         cases={prettyPrintStat(dailyData.dailyRecoveries)}
                       ></InfoBox>
                     </Grid>
                     <Grid item xs={4}>
                       <InfoBox
+                      data-test="info-box"
                         title="Daily Deaths"
                         cases={prettyPrintStat(dailyData.dailyDeaths)}
                       ></InfoBox>

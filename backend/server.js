@@ -33,22 +33,6 @@ app.get("/countries", async (req, res) => {
   }
 });
 
-router.get("/countries", async (req, res) => {
-  try {
-    const { date } = req.query;
-
-    if (!date) {
-      return res.status(400).json({ error: "Date parameter is required" });
-    }
-
-    const countriesData = await CovidData.find({ date });
-
-    res.json(countriesData);
-  } catch (error) {
-    res.status(500).json({ error: "Internal Server Error" });
-  }
-});
-
 app.get("/country/:countryId", async (req, res) => {
   try {
     const countryId = req.params.countryId;
@@ -207,10 +191,8 @@ app.get("/countries/:countryId", async (req, res) => {
 
 app.get("/flagsdata", async (req, res) => {
   try {
-    // Fetch all flag data for countries from FlagsData collection
     const flagsData = await FlagsData.find();
 
-    // Return the flag data for all countries
     res.json(flagsData);
   } catch (error) {
     res.status(500).json({ error: "Internal Server Error" });
